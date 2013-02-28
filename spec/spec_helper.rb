@@ -52,6 +52,9 @@ Spork.prefork do
     # printed after each run.
     #     --seed 1234
     config.order = "random"
+
+    # based on http://stackoverflow.com/a/8953304/1752422
+    config.include Rails.application.routes.url_helpers
   end
 
 end
