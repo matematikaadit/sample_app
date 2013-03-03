@@ -2,6 +2,12 @@
 # More info at https://github.com/guard/guard#readme
 require 'active_support/core_ext'
 
+guard 'bundler' do
+  watch('Gemfile')
+  # Uncomment next line if Gemfile contain `gemspec' command
+  # watch(/^.+\.gemspec/)
+end
+
 guard 'spork', :cucumber_env => { 'RAILS_ENV' => 'test' }, :rspec_env => { 'RAILS_ENV' => 'test' } do
   watch('config/application.rb')
   # watch for routes
@@ -15,6 +21,8 @@ guard 'spork', :cucumber_env => { 'RAILS_ENV' => 'test' }, :rspec_env => { 'RAIL
   watch('test/test_helper.rb') { :test_unit }
   watch(%r{features/support/}) { :cucumber }
   watch('spec/support')
+  # watch for factories
+  watch('spec/factories.rb')
 end
 
 guard 'rspec', :version => 2, :all_after_pass => false, :cli => '--drb'  do
@@ -50,4 +58,3 @@ guard 'rspec', :version => 2, :all_after_pass => false, :cli => '--drb'  do
                       "spec/requests/#{m[1].singularize}_pages_spec.rb")
   end
 end
-
